@@ -24,13 +24,14 @@
 
     /* 🖼️ FONDO IMAGEN */
     img#fondo {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: fill;   /* MISMA LÓGICA QUE GRAN ESTACIÓN */
-      z-index: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;   /* 👈 el cambio clave */
+  background: black;     /* relleno elegante */
+  z-index: 0;
     }
 
     /* 🔢 CONTADOR (RELATIVO AL VIEWPORT) */
@@ -89,5 +90,6 @@
 
 </body>
 </html>
+
 
 
