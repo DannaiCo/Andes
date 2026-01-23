@@ -14,29 +14,17 @@
     body {
       background: black;
       overflow: hidden;
-      width: 100vw;
-      height: 100vh;
     }
 
-    /* VIEWPORT REAL DEL PLAYER */
-    #viewport {
+    /* Lienzo REAL del player */
+    #screen {
       width: 100vw;
       height: 100vh;
       position: relative;
       overflow: hidden;
     }
 
-    /* CANVAS ORIGINAL DE DISEÑO */
-    #screen {
-      width: 7922px;
-      height: 553px;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform-origin: top left;
-    }
-
-    /* Fondo FILL */
+    /* Fondo siempre ocupa TODO el viewport */
     #background {
       width: 100%;
       height: 100%;
@@ -46,11 +34,12 @@
       left: 0;
     }
 
-    /* TEXTO POR COORDENADAS (las que ya ajustaste) */
+    /* Texto por coordenadas RELATIVAS */
     #days-counter {
       position: absolute;
-      left: 4980px;
-      top: 250px;
+      left: 65%;   /* X relativo */
+      top: 45%;    /* Y relativo */
+      transform: translate(-50%, -50%);
       font-family: Arial, sans-serif;
       color: #e6004c;
       z-index: 10;
@@ -58,53 +47,25 @@
     }
 
     #days-number {
-      font-size: 220px;
+      font-size: 15vw;   /* Escala con la pantalla */
       font-weight: bold;
       line-height: 1;
     }
+
   </style>
 </head>
 
 <body>
 
-  <div id="viewport">
-    <div id="screen">
-      <img id="background" src="fondo.png">
-      <div id="days-counter">
-        <div id="days-number">00</div>
-      </div>
+  <div id="screen">
+    <img id="background" src="fondo.png">
+
+    <div id="days-counter">
+      <div id="days-number">00</div>
     </div>
   </div>
 
   <script>
-    /* ===============================
-       ESCALADO AUTOMÁTICO AL VIEWPORT
-       =============================== */
-    const DESIGN_WIDTH = 7922;
-    const DESIGN_HEIGHT = 553;
-
-    function scaleScreen() {
-      const vw = window.innerWidth;
-      const vh = window.innerHeight;
-
-      const scaleX = vw / DESIGN_WIDTH;
-      const scaleY = vh / DESIGN_HEIGHT;
-
-      // Usamos el menor para evitar crop
-      const scale = Math.min(scaleX, scaleY);
-
-      const screen = document.getElementById("screen");
-      screen.style.transform = `
-        translate(-50%, -50%) scale(${scale})
-      `;
-    }
-
-    window.addEventListener("resize", scaleScreen);
-    scaleScreen();
-
-    /* ===============================
-       CUENTA REGRESIVA SOLO EN DÍAS
-       =============================== */
     const targetDate = new Date("2026-02-14T00:00:00").getTime();
 
     function updateDays() {
@@ -121,9 +82,10 @@
     }
 
     updateDays();
-    setInterval(updateDays, 1000 * 60 * 10);
-  </script>
+    setInterval(updateDays, 1000 * 60 * 10); // cada 10 min
+  </cript>
 
 </body>
 </html>
+
 
