@@ -2,88 +2,90 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>San Valentín - Días restantes</title>
+  <title>San Valentín - Andes</title>
 
   <style>
-    * {
+    html, body {
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      background: black;
       overflow: hidden;
-    }
-
-    /* Lienzo REAL del player */
-    #screen {
       width: 100vw;
       height: 100vh;
+      background: #000;
+    }
+
+    /* 🔥 CONTENEDOR FULLSCREEN REAL */
+    .contenedor-total {
       position: relative;
+      width: 100vw;
+      height: 100vh;
       overflow: hidden;
     }
 
-    /* Fondo siempre ocupa TODO el viewport */
-    #background {
-      width: 100%;
-      height: 100%;
-      object-fit: fill;
+    /* 🖼️ FONDO IMAGEN */
+    img#fondo {
       position: absolute;
       top: 0;
       left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: fill;   /* MISMA LÓGICA QUE GRAN ESTACIÓN */
+      z-index: 0;
     }
 
-    /* Texto por coordenadas RELATIVAS */
-    #days-counter {
+    /* 🔢 CONTADOR (RELATIVO AL VIEWPORT) */
+    .contador {
       position: absolute;
-      left: 65%;   /* X relativo */
-      top: 45%;    /* Y relativo */
+      left: 63vw;   /* mueve horizontal */
+      top: 45vh;    /* mueve vertical */
       transform: translate(-50%, -50%);
       font-family: Arial, sans-serif;
       color: #e6004c;
-      z-index: 10;
+      z-index: 1;
       text-align: center;
     }
 
-    #days-number {
-      font-size: 15vw;   /* Escala con la pantalla */
+    .contador span {
+      font-size: 12vw;  /* escala automática según pantalla */
       font-weight: bold;
       line-height: 1;
     }
-
   </style>
 </head>
 
 <body>
+  <div class="contenedor-total">
 
-  <div id="screen">
-    <img id="background" src="fondo.png">
+    <!-- 🖼️ Fondo -->
+    <img id="fondo" src="fondo.png">
 
-    <div id="days-counter">
-      <div id="days-number">00</div>
+    <!-- 🔢 Contador -->
+    <div class="contador">
+      <span id="days-number">00</span>
     </div>
+
   </div>
 
-  <script>
-    const targetDate = new Date("2026-02-14T00:00:00").getTime();
+<script>
+  const targetDate = new Date("2026-02-14T00:00:00").getTime();
+  const daysNumber = document.getElementById("days-number");
 
-    function updateDays() {
-      const now = new Date().getTime();
-      const distance = targetDate - now;
+  function updateDays() {
+    const now = new Date().getTime();
+    const distance = targetDate - now;
 
-      if (distance < 0) {
-        document.getElementById("days-number").innerText = "HOY";
-        return;
-      }
-
-      const days = Math.ceil(distance / (1000 * 60 * 60 * 24));
-      document.getElementById("days-number").innerText = days;
+    if (distance <= 0) {
+      daysNumber.innerText = "HOY";
+      return;
     }
 
-    updateDays();
-    setInterval(updateDays, 1000 * 60 * 10); // cada 10 min
-  </cript>
+    const days = Math.ceil(distance / (1000 * 60 * 60 * 24));
+    daysNumber.innerText = days;
+  }
+
+  updateDays();
+  setInterval(updateDays, 1000 * 60 * 10); // cada 10 min
+</script>
 
 </body>
 </html>
