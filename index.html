@@ -1,95 +1,118 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>San Valentín - Andes</title>
+<meta charset="UTF-8">
+<title>Cuenta regresiva Mundial</title>
 
-  <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      overflow: hidden;
-      width: 100vw;
-      height: 100vh;
-      background: #000;
-    }
+<!-- Fuentes -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Open+Sans:ital,wght@1,600&display=swap" rel="stylesheet">
 
-    /* 🔥 CONTENEDOR FULLSCREEN REAL */
-    .contenedor-total {
-      position: relative;
-      width: 100vw;
-      height: 100vh;
-      overflow: hidden;
-    }
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
 
-    /* 🖼️ FONDO IMAGEN */
-    img#fondo {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: contain;   /* 👈 el cambio clave */
-  background: black;     /* relleno elegante */
-  z-index: 0;
-    }
+body{
+  width:4147px;
+  height:1556px;
+  overflow:hidden;
+  background:black;
+}
 
-    /* 🔢 CONTADOR (RELATIVO AL VIEWPORT) */
-    .contador {
-      position: absolute;
-      left: 63vw;   /* mueve horizontal */
-      top: 45vh;    /* mueve vertical */
-      transform: translate(-50%, -50%);
-      font-family: Arial, sans-serif;
-      color: #e6004c;
-      z-index: 1;
-      text-align: center;
-    }
+/* VIDEO */
+.video-bg{
+  position:absolute;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  z-index:0;
+}
 
-    .contador span {
-      font-size: 12vw;  /* escala automática según pantalla */
-      font-weight: bold;
-      line-height: 1;
-    }
-  </style>
+/* CONTENEDOR BASE */
+.contador{
+  position:absolute;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+}
+
+/* AJUSTA ESTAS POSICIONES SEGÚN TUS CUADROS VERDES */
+.contador1{
+  left:2900px;
+  top:250px;
+  width:900px;
+  height:400px;
+}
+
+.contador2{
+  left:2900px;
+  top:900px;
+  width:900px;
+  height:400px;
+}
+
+/* NÚMERO */
+.numero{
+  font-family:"Dela Gothic One", sans-serif;
+  font-size:200px;
+  color:#012BFF;
+  line-height:1;
+}
+
+/* FRASE */
+.frase{
+  font-family:"Open Sans", sans-serif;
+  font-weight:600;
+  font-style:italic;
+  font-size:70px;
+  color:#FFFFFF;
+  margin-top:20px;
+}
+
+</style>
 </head>
 
 <body>
-  <div class="contenedor-total">
 
-    <!-- 🖼️ Fondo -->
-    <img id="fondo" src="fondo.png">
+<video class="video-bg" autoplay muted loop>
+  <source src="fondo.mp4" type="video/mp4">
+</video>
 
-    <!-- 🔢 Contador -->
-    <div class="contador">
-      <span id="days-number">00</span>
-    </div>
+<div class="contador contador1">
+  <div class="numero" id="dias1">0</div>
+  <div class="frase">DÍAS PARA EL MUNDIAL</div>
+</div>
 
-  </div>
+<div class="contador contador2">
+  <div class="numero" id="dias2">0</div>
+  <div class="frase">DÍAS PARA EL MUNDIAL</div>
+</div>
 
 <script>
-  const targetDate = new Date("2026-02-14T00:00:00").getTime();
-  const daysNumber = document.getElementById("days-number");
 
-  function updateDays() {
-    const now = new Date().getTime();
-    const distance = targetDate - now;
+// Fecha del Mundial (11 junio 2026)
+const fechaObjetivo = new Date("June 11, 2026 00:00:00").getTime();
 
-    if (distance <= 0) {
-      daysNumber.innerText = "HOY";
-      return;
-    }
+function actualizarContador(){
+  const ahora = new Date().getTime();
+  const diferencia = fechaObjetivo - ahora;
 
-    const days = Math.ceil(distance / (1000 * 60 * 60 * 24));
-    daysNumber.innerText = days;
-  }
+  const dias = Math.floor(diferencia / (1000 * 60 * 60 * 24));
 
-  updateDays();
-  setInterval(updateDays, 1000 * 60 * 10); // cada 10 min
+  document.getElementById("dias1").innerHTML = dias;
+  document.getElementById("dias2").innerHTML = dias;
+}
+
+actualizarContador();
+setInterval(actualizarContador, 60000);
+
 </script>
 
 </body>
 </html>
-
-
-
