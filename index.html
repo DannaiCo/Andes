@@ -4,35 +4,46 @@
 <meta charset="UTF-8">
 <title>Cuenta regresiva Mundial</title>
 
-<!-- Fuentes -->
+<meta name="viewport" content="width=4147, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Open+Sans:ital,wght@1,600&display=swap" rel="stylesheet">
 
 <style>
-*{
+
+html, body{
   margin:0;
   padding:0;
-  box-sizing:border-box;
-}
-
-body{
   width:4147px;
   height:1556px;
   overflow:hidden;
+  position:relative;
   background:black;
 }
 
 /* VIDEO */
 .video-bg{
   position:absolute;
+  top:0;
+  left:0;
   width:100%;
   height:100%;
   object-fit:cover;
-  z-index:0;
+  z-index:-1;
 }
 
-/* CONTENEDOR BASE */
+/* LIENZO FIJO */
+.wrapper{
+  width:4147px;
+  height:1556px;
+  position:relative;
+  margin:0 auto;
+  transform:scale(1);
+  transform-origin:top left;
+}
+
+/* CONTADOR */
 .contador{
   position:absolute;
   display:flex;
@@ -42,7 +53,6 @@ body{
   text-align:center;
 }
 
-/* AJUSTA ESTAS POSICIONES SEGÚN TUS CUADROS VERDES */
 .contador1{
   left:2300px;
   top:120px;
@@ -57,7 +67,6 @@ body{
   height:400px;
 }
 
-/* NÚMERO */
 .numero{
   font-family:"Dela Gothic One", sans-serif;
   font-size:200px;
@@ -65,7 +74,6 @@ body{
   line-height:1;
 }
 
-/* FRASE */
 .frase{
   font-family:"Open Sans", sans-serif;
   font-weight:600;
@@ -80,33 +88,35 @@ body{
 
 <body>
 
-<video class="video-bg" autoplay muted loop>
+<video autoplay muted loop class="video-bg">
   <source src="fondo.mp4" type="video/mp4">
 </video>
 
-<div class="contador contador1">
-  <div class="numero" id="dias1">0</div>
-  <div class="frase">DÍAS PARA EL MUNDIAL</div>
-</div>
+<div class="wrapper">
 
-<div class="contador contador2">
-  <div class="numero" id="dias2">0</div>
-  <div class="frase">DÍAS PARA EL MUNDIAL</div>
+  <div class="contador contador1">
+    <div class="numero" id="dias1">0</div>
+    <div class="frase">DÍAS PARA EL MUNDIAL</div>
+  </div>
+
+  <div class="contador contador2">
+    <div class="numero" id="dias2">0</div>
+    <div class="frase">DÍAS PARA EL MUNDIAL</div>
+  </div>
+
 </div>
 
 <script>
 
-// Fecha del Mundial (11 junio 2026)
 const fechaObjetivo = new Date("June 11, 2026 00:00:00").getTime();
 
 function actualizarContador(){
   const ahora = new Date().getTime();
   const diferencia = fechaObjetivo - ahora;
-
   const dias = Math.floor(diferencia / (1000 * 60 * 60 * 24));
 
-  document.getElementById("dias1").innerHTML = dias;
-  document.getElementById("dias2").innerHTML = dias;
+  document.getElementById("dias1").innerText = dias;
+  document.getElementById("dias2").innerText = dias;
 }
 
 actualizarContador();
@@ -115,5 +125,4 @@ setInterval(actualizarContador, 60000);
 </script>
 
 </body>
-
 </html>
