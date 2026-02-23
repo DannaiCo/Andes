@@ -44,37 +44,53 @@ body{
 
 /* AJUSTA ESTAS POSICIONES SEGÚN TUS CUADROS VERDES */
 .contador1{
-  left:2300px;
-  top:120px;
+  left:2360px;
+  top:75px;
   width:900px;
   height:400px;
 }
 
 .contador2{
   left:2800px;
-  top:1000px;
+  top:850px;
   width:900px;
   height:400px;
 }
-
+.contador3{
+  left:510px;
+  top:845px;
+  width:900px;
+  height:400px;
+}
 /* NÚMERO */
 .numero{
-  font-family:"Dela Gothic One", sans-serif;
-  font-size:200px;
+  font-family: "Dela Gothic One", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size:190px;
   color:#012BFF;
   line-height:1;
 }
 
 /* FRASE */
 .frase{
-  font-family:"Open Sans", sans-serif;
-  font-weight:600;
-  font-style:italic;
-  font-size:70px;
-  color:#FFFFFF;
-  margin-top:20px;
+   font-family: "Dela Gothic One", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size:150px;
+  color:#012BFF;
+  margin-top:-10px;
 }
-
+.frases{
+  font-family: "Open Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: italic;
+  font-variation-settings:"wdth" 100;
+  font-size:150px;
+  color:#ffffff;
+  line-height: 100%;
+}
 </style>
 </head>
 
@@ -86,14 +102,16 @@ body{
 
 <div class="contador contador1">
   <div class="numero" id="dias1">0</div>
-  <div class="frase">DÍAS PARA EL MUNDIAL</div>
+  <div class="frase">DÍAS</div>
 </div>
 
 <div class="contador contador2">
   <div class="numero" id="dias2">0</div>
-  <div class="frase">DÍAS PARA EL MUNDIAL</div>
+  <div class="frase">DÍAS</div>
 </div>
-
+<div class="contador contador3">
+<div class="frases" id="fraseRotativa"></div>
+</div>
 <script>
 
 // Fecha del Mundial (11 junio 2026)
@@ -111,17 +129,37 @@ function actualizarContador(){
 
 actualizarContador();
 setInterval(actualizarContador, 60000);
+  
+// LISTA DE FRASES
+const listaFrases = [
+  "Cantar goles con extraños",
+  "No lavar la camiseta",
+  "Sufrir juntos cada partido",
+  "Vivir 90 min eternos",
+  "Gritarle a la pantalla",
+  "Celebrar como nunca",
+  "Sentirse técnico"
+];
+
+let indiceActual = 0;
+
+// Función para cambiar frase
+function cambiarFrase() {
+  const elementoFrase = document.getElementById("fraseRotativa");
+
+  const indiceAleatorio = Math.floor(Math.random() * listaFrases.length);
+
+  elementoFrase.innerHTML = listaFrases[indiceAleatorio];
+}
+
+// Mostrar primera frase al cargar
+cambiarFrase();
+
+// Cambiar cada 30 minutos (1800000 ms)
+setInterval(cambiarFrase, 600000);
 
 </script>
 
 </body>
 
 </html>
-
-
-
-
-
-
-
-
