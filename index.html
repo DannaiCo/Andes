@@ -1,166 +1,166 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
-<head>
-<meta charset="UTF-8">
-<title>Cuenta regresiva Mundial</title>
+  <head>
+    <meta name="viewport" content="width=4147, height=1556, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Cuenta regresiva Mundial</title>
 
-<!-- Fuentes -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Open+Sans:ital,wght@1,600&display=swap" rel="stylesheet">
+    <!-- Fuentes -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Open+Sans:ital,wght@1,600&display=swap"
+      rel="stylesheet" />
 
-<style>
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-}
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
 
-body{
-  width:4147px;
-  height:1556px;
-  overflow:hidden;
-  background:black;
-}
+      html,
+      body {
+        width: 4147px;
+        height: 1556px;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background: black;
+      }
 
-/* VIDEO */
-.video-bg{
-  position:absolute;
-  width:4147px;
-  height:1556px;
-  object-fit:cover;
-  z-index:0;
-}
+      /* VIDEO */
+      .video-bg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 4147px;
+        height: 1556px;
+        object-fit: fill; /* IMPORTANTE */
+        z-index: 0;
+      }
+      /* CONTENEDOR BASE */
+      .contador {
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+      }
 
-/* CONTENEDOR BASE */
-.contador{
-  position:absolute;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  text-align:center;
-}
+      /* AJUSTA ESTAS POSICIONES SEGÚN TUS CUADROS VERDES */
+      .contador1 {
+        left: 2360px;
+        top: 75px;
+        width: 900px;
+        height: 400px;
+      }
 
-/* AJUSTA ESTAS POSICIONES SEGÚN TUS CUADROS VERDES */
-.contador1{
-  left:2360px;
-  top:75px;
-  width:900px;
-  height:400px;
-}
+      .contador2 {
+        left: 2800px;
+        top: 850px;
+        width: 900px;
+        height: 400px;
+      }
+      .contador3 {
+        left: 510px;
+        top: 845px;
+        width: 900px;
+        height: 400px;
+      }
+      /* NÚMERO */
+      .numero {
+        font-family: "Dela Gothic One", sans-serif;
+        font-weight: 400;
+        font-style: normal;
+        font-size: 190px;
+        color: #012bff;
+        line-height: 1;
+      }
 
-.contador2{
-  left:2800px;
-  top:850px;
-  width:900px;
-  height:400px;
-}
-.contador3{
-  left:510px;
-  top:845px;
-  width:900px;
-  height:400px;
-}
-/* NÚMERO */
-.numero{
-  font-family: "Dela Gothic One", sans-serif;
-  font-weight: 400;
-  font-style: normal;
-  font-size:190px;
-  color:#012BFF;
-  line-height:1;
-}
+      /* FRASE */
+      .frase {
+        font-family: "Dela Gothic One", sans-serif;
+        font-weight: 400;
+        font-style: normal;
+        font-size: 150px;
+        color: #012bff;
+        margin-top: -10px;
+      }
+      .frases {
+        font-family: "Open Sans", sans-serif;
+        font-optical-sizing: auto;
+        font-weight: 600;
+        font-style: italic;
+        font-variation-settings: "wdth" 100;
+        font-size: 150px;
+        color: #ffffff;
+        line-height: 100%;
+      }
+    </style>
+  </head>
 
-/* FRASE */
-.frase{
-   font-family: "Dela Gothic One", sans-serif;
-  font-weight: 400;
-  font-style: normal;
-  font-size:150px;
-  color:#012BFF;
-  margin-top:-10px;
-}
-.frases{
-  font-family: "Open Sans", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 600;
-  font-style: italic;
-  font-variation-settings:"wdth" 100;
-  font-size:150px;
-  color:#ffffff;
-  line-height: 100%;
-}
-</style>
-</head>
+  <body>
+    <video class="video-bg" autoplay muted loop>
+      <source src="fondo.mp4" type="video/mp4" />
+    </video>
 
-<body>
+    <div class="contador contador1">
+      <div class="numero" id="dias1">0</div>
+      <div class="frase">DÍAS</div>
+    </div>
 
-<video class="video-bg" autoplay muted loop>
-  <source src="fondo.mp4" type="video/mp4">
-</video>
+    <div class="contador contador2">
+      <div class="numero" id="dias2">0</div>
+      <div class="frase">DÍAS</div>
+    </div>
+    <div class="contador contador3">
+      <div class="frases" id="fraseRotativa"></div>
+    </div>
+    <script>
+      // Fecha del Mundial (11 junio 2026)
+      const fechaObjetivo = new Date("June 11, 2026 00:00:00").getTime();
 
-<div class="contador contador1">
-  <div class="numero" id="dias1">0</div>
-  <div class="frase">DÍAS</div>
-</div>
+      function actualizarContador() {
+        const ahora = new Date().getTime();
+        const diferencia = fechaObjetivo - ahora;
 
-<div class="contador contador2">
-  <div class="numero" id="dias2">0</div>
-  <div class="frase">DÍAS</div>
-</div>
-<div class="contador contador3">
-<div class="frases" id="fraseRotativa"></div>
-</div>
-<script>
+        const dias = Math.floor(diferencia / (1000 * 60 * 60 * 24));
 
-// Fecha del Mundial (11 junio 2026)
-const fechaObjetivo = new Date("June 11, 2026 00:00:00").getTime();
+        document.getElementById("dias1").innerHTML = dias;
+        document.getElementById("dias2").innerHTML = dias;
+      }
 
-function actualizarContador(){
-  const ahora = new Date().getTime();
-  const diferencia = fechaObjetivo - ahora;
+      actualizarContador();
+      setInterval(actualizarContador, 60000);
 
-  const dias = Math.floor(diferencia / (1000 * 60 * 60 * 24));
+      // LISTA DE FRASES
+      const listaFrases = [
+        "Cantar goles con extraños",
+        "No lavar la camiseta",
+        "Sufrir juntos cada partido",
+        "Vivir 90 min eternos",
+        "Gritarle a la pantalla",
+        "Celebrar como nunca",
+        "Sentirse técnico"
+      ];
 
-  document.getElementById("dias1").innerHTML = dias;
-  document.getElementById("dias2").innerHTML = dias;
-}
+      let indiceActual = 0;
 
-actualizarContador();
-setInterval(actualizarContador, 30000);
-  
-// LISTA DE FRASES
-const listaFrases = [
-  "Cantar goles con extraños",
-  "No lavar la camiseta",
-  "Sufrir juntos cada partido",
-  "Vivir 90 min eternos",
-  "Gritarle a la pantalla",
-  "Celebrar como nunca",
-  "Sentirse técnico"
-];
+      // Función para cambiar frase
+      function cambiarFrase() {
+        const elementoFrase = document.getElementById("fraseRotativa");
 
-let indiceActual = 0;
+        const indiceAleatorio = Math.floor(Math.random() * listaFrases.length);
 
-// Función para cambiar frase
-function cambiarFrase() {
-  const elementoFrase = document.getElementById("fraseRotativa");
+        elementoFrase.innerHTML = listaFrases[indiceAleatorio];
+      }
 
-  const indiceAleatorio = Math.floor(Math.random() * listaFrases.length);
+      // Mostrar primera frase al cargar
+      cambiarFrase();
 
-  elementoFrase.innerHTML = listaFrases[indiceAleatorio];
-}
-
-// Mostrar primera frase al cargar
-cambiarFrase();
-
-// Cambiar cada 30 minutos (1800000 ms)
-setInterval(cambiarFrase, 600000);
-
-</script>
-
-</body>
-
-
+      // Cambiar cada 30 minutos (1800000 ms)
+      setInterval(cambiarFrase, 600000);
+    </script>
+  </body>
 </html>
